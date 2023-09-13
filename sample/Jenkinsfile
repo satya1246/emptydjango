@@ -14,7 +14,7 @@ pipeline {
                 // Checkout the code from your Git repository
                 // Replace 'YOUR_GIT_REPO_URL' and 'YOUR_BRANCH' with your Git repo details
                 // checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/satya1246/djangoapi-project.git']]])
-                git branch: 'main', credentialsId: '2440988f-0811-4435-87ab-27a398349a7d', url: 'https://github.com/satya1246/djangoapi-project.git'
+                git branch: 'main', credentialsId: '2440988f-0811-4435-87ab-27a398349a7d', url: 'https://github.com/satya1246/emptydjango.git'
             }
         }
 
