@@ -29,17 +29,20 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    // Authenticate Docker to ECR
-                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 569994883643.dkr.ecr.us-east-1.amazonaws.com"
+                    withAWS(region: "${AWS_DEFAULT_REGION}", credentials: '67adfc02-ddd0-49ec-8a8b-2374fbbe195e') {
+                        // Authenticate Docker to ECR using AWS access keys
+                        sh "docker login --username AWS --password $(aws ecr get-login-password --region us-east-1) 569994883643.dkr.ecr.us-east-1.amazonaws.com"
 
-                    // Tag the Docker image for ECR
-                    sh "docker tag ${DOCKER_IMAGE_NAME} ${AWS_ECR_REPO}/${DOCKER_IMAGE_NAME}"
+                        // Tag the Docker image for ECR
+                        sh "docker tag ${DOCKER_IMAGE_NAME} ${AWS_ECR_REPO}/${DOCKER_IMAGE_NAME}"
 
-                    // Push the Docker image to ECR
-                    sh "docker push ${AWS_ECR_REPO}/${DOCKER_IMAGE_NAME}"
+                        // Push the Docker image to ECR
+                        sh "docker push ${AWS_ECR_REPO}/${DOCKER_IMAGE_NAME}"
+                    }
                 }
             }
-        }
+}
+
 
         // stage('Push to ECR') {
         //     steps {
