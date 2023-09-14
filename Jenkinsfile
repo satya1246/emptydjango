@@ -23,14 +23,16 @@ pipeline {
                 // Build the Docker image
                 
                script{
-                sh  docker.build "${DOCKER_IMAGE_NAME}" "${DOCKERFILE_PATH}"
+                dockerImage = docker.build "${DOCKER_IMAGE_NAME}" "${DOCKERFILE_PATH}"
+                echo "this stage successfully completed"
                }
             }
         }
 
         stage('Push to ECR') {
             steps {
-                withAWS(credentials: '67adfc02-ddd0-49ec-8a8b-2374fbbe195e', region: "${AWS_REGION}") {
+                echo "entering into new stage"
+                withAWS(credentials: '67adfc02-ddd0-49ec-8a8b-2374fbbe195e', region: "${AWS_REGION}) {
                     // Authenticate Docker to ECR
                     sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ECR_REPO}"
 
