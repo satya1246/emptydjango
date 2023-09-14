@@ -21,7 +21,7 @@ pipeline {
                 // Build the Docker image
                 
                script{
-                dockerImage = docker.build "${DOCKER_IMAGE_NAME}" '.'
+                dockerImage = docker.build "${DOCKER_IMAGE_NAME}" 
                  "this stage successfully completed"
                }
             }
