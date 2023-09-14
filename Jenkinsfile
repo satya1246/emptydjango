@@ -23,7 +23,7 @@ pipeline {
                 // Build the Docker image
                 
                script{
-                dockerImage = docker.build "${DOCKER_IMAGE_NAME}" "${DOCKERFILE_PATH}"
+                sh  docker.build "${DOCKER_IMAGE_NAME}" "${DOCKERFILE_PATH}"
                }
             }
         }
