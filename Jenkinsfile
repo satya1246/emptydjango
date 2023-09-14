@@ -16,16 +16,14 @@ pipeline {
                 git branch: 'main', credentialsId: '2440988f-0811-4435-87ab-27a398349a7d', url: 'https://github.com/satya1246/emptydjango.git'
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                // Build the Docker image
-                
-               script{
+       stage('Build Docker Image') {
+        steps {
+            script {
                 dockerImage = docker.build "${DOCKER_IMAGE_NAME}" 
-                 "this stage successfully completed"
-               }
             }
-        }
+            echo "This stage successfully completed"
+    }
+}
         // stage('Push to ECR') {
         //     steps {
                 
