@@ -5,7 +5,7 @@ pipeline {
         AWS_REGION = 'us-east-1'
         AWS_ECR_REPO = '569994883643.dkr.ecr.us-east-1.amazonaws.com/satya'
         DOCKER_IMAGE_NAME = 'django-rest-api-books'
-        DOCKERFILE_PATH = '.'
+        // DOCKERFILE_PATH = '.'
     }
      stages {
         stage('getting source code ') {
@@ -21,7 +21,7 @@ pipeline {
                 // Build the Docker image
                 
                script{
-                dockerImage = docker.build "${DOCKER_IMAGE_NAME}" "${DOCKERFILE_PATH}"
+                dockerImage = docker.build "${DOCKER_IMAGE_NAME}" '.'
                  "this stage successfully completed"
                }
             }
