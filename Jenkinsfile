@@ -31,7 +31,8 @@ pipeline {
                 script {
                     withAWS(region: "${AWS_DEFAULT_REGION}", credentials: '67adfc02-ddd0-49ec-8a8b-2374fbbe195e') {
                         // Authenticate Docker to ECR using AWS access keys
-                        sh "docker login --username AWS --password $(aws ecr get-login-password --region us-east-1) 569994883643.dkr.ecr.us-east-1.amazonaws.com"
+                        sh "docker login --username AWS --password \$(aws ecr get-login-password --region us-east-1) 569994883643.dkr.ecr.us-east-1.amazonaws.com"
+
 
                         // Tag the Docker image for ECR
                         sh "docker tag ${DOCKER_IMAGE_NAME} ${AWS_ECR_REPO}/${DOCKER_IMAGE_NAME}"
