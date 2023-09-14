@@ -16,14 +16,31 @@ pipeline {
                 git branch: 'main', credentialsId: '2440988f-0811-4435-87ab-27a398349a7d', url: 'https://github.com/satya1246/emptydjango.git'
             }
         }
-       stage('Build Docker Image') {
-        steps {
-            script {
+        stage('Build Docker Image') {
+            steps {
+                // Build the Docker image
+                
+               script{
                 dockerImage = docker.build "${DOCKER_IMAGE_NAME}" 
+                 "this stage successfully completed"
+               }
             }
-            echo "This stage successfully completed"
-    }
-}
+        }
+        stage('Push to ECR') {
+            steps {
+                script {
+                    // Authenticate Docker to ECR
+                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 569994883643.dkr.ecr.us-east-1.amazonaws.com"
+
+                    // Tag the Docker image for ECR
+                    sh "docker tag ${DOCKER_IMAGE_NAME} ${AWS_ECR_REPO}/${DOCKER_IMAGE_NAME}"
+
+                    // Push the Docker image to ECR
+                    sh "docker push ${AWS_ECR_REPO}/${DOCKER_IMAGE_NAME}"
+                }
+            }
+        }
+
         // stage('Push to ECR') {
         //     steps {
                 
