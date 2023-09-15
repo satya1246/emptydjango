@@ -42,7 +42,19 @@ pipeline {
                     }
                 }
             }
-}
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                // Deploy your Django application to Kubernetes.
+                script {
+                    kubernetesDeploy(
+                        kubeconfigId: 'your-kubeconfig-credentials',
+                        configs: 'your-k8s-configs.yaml',
+                        enableConfigSubstitution: true
+                    )
+                }
+            }
+        }
 
 
         // stage('Push to ECR') {

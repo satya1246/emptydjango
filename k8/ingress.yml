@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: django-sample-ingress
+spec:
+  rules:
+    - host: your-domain.com  # Replace with your domain or hostname
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: django-sample-service
+                port:
+                  number: 80

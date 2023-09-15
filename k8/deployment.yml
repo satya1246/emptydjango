@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-sample-deployment
+spec:
+  replicas: 3 # Number of desired replica pods
+  selector:
+    matchLabels:
+      app: django-sample-app
+  template:
+    metadata:
+      labels:
+        app: django-sample-app
+      containers:
+        - name: django-sample-app-container
+          image: 569994883643.dkr.ecr.us-east-1.amazonaws.com/satya:latest # Replace with your Docker image and tag
+          ports:
+            - containerPort: 80 # Port your application listens on
